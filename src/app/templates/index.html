@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test-Classifier</title>
+        <link rel="stylesheet" href='static/css/style.css'>
+        <link rel="stylesheet" href='static/jstree/themes/default/style.min.css'>
+        <script src="../static/jquery-3.3.1.js"></script>
+        <script src="../static/jstree/jstree.min.js"></script>
+    </head>
+    <body>
+        <div class="classifier">
+            <div class="header">
+                <p>Группы объектов защиты</p>
+            </div>
+            <input class="jstree_search" type="text">
+            <div class="jstree_demo_div">
+
+            </div>
+        </div>
+        <div class="content">
+            <div class="header">
+                <p>Иерархия группы</p>
+            </div>
+            <div>
+                <div class="incol choisen_id">
+                    {{ form.element_id }}
+                </div>
+                <div class="incol choisen_text">
+                    {{ form.name_choice(maxlength=64) }}
+                    <hr>
+                </div>
+                <div class="incol">
+                    {{ form.save_btn(value='Сохранить') }}
+                </div>
+                <div class="incol">
+                    {{ form.del_btn(value='Удалить') }}
+                    <hr>
+                </div>
+                <div class="incol">
+                    {{ form.add_btn(value='Добавить') }}
+                </div>
+                <div class="incol">
+                    {{ form.add_root_btn(value='Добавить в корень') }}
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $('.jstree_demo_div').jstree({
+                    'plugins' : [ "search" ],
+                    'core' : {
+                        'data' : { 'url' : '/render'}
+                    }
+                });
+                var to = false;
+                $('.jstree_search').keyup(function () {
+                    if (to) {
+                        clearTimeout(to);
+                    }
+                    to = setTimeout(function () {
+                        var v = $('.jstree_search').val();
+                        $('.jstree_demo_div').jstree(true).search(v);
+                    }, 250);
+                });
+                $('.jstree_demo_div').on('changed.jstree', function (e, data) {
+                    $('#name_choice').val(data.instance.get_node(data.selected[0]).text);
+                    $('#element_id').val(data.selected[0])
+                });
+                $('#add_btn').on('click', function () {
+                    $.ajax({ url: '/nodes',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({id: $('#element_id').val(),
+                                    text: $('#name_choice').val()}),
+                            success: function () {
+                        $('.jstree_demo_div').jstree(true).refresh(false,false);
+                                                }
+                    })
+                });
+                $('#add_root_btn').on('click', function () {
+                    $.ajax({ url: '/add',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({id: $('#element_id').val(),
+                                    text: $('#name_choice').val()}),
+                            success: function () {
+                        $('.jstree_demo_div').jstree(true).refresh(false,false);
+                                                }
+                    })
+                });
+                $('#save_btn').on('click', function () {
+                    $.ajax({ url: '/nodes',
+                            type: 'PUT',
+                            contentType: 'application/json',
+                            data: JSON.stringify({id: $('#element_id').val(),
+                                    text: $('#name_choice').val()}),
+                            success: function () {
+                        $('.jstree_demo_div').jstree(true).refresh(false,false);
+                                                }
+                    })
+                });
+
+                $('#del_btn').on('click', function () {
+                    $.ajax({ url: '/nodes',
+                            type: 'DELETE',
+                            contentType: 'application/json',
+                            data: JSON.stringify({id: $('#element_id').val(),
+                                    text: $('#name_choice').val()}),
+                            success: function (data) {
+                        $('.jstree_demo_div').jstree(true).refresh(false,false);
+                                                }
+                    })
+                });
+            })
+        </script>
+    </body>
+</html>

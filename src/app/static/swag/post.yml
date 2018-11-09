@@ -1,0 +1,17 @@
+summary: Add new node as a child of current node
+tags:
+  - tree_view_classifier
+consumes:
+  - application/json
+parameters:
+  - in: body
+    name: Request
+    required: true
+    description: Id of parent node and Name of new node.
+    schema:
+      $ref: "#/definitions/Request"
+responses:
+  201:
+    description: Created
+  400:
+    description: Bad Request

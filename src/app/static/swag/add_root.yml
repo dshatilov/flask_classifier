@@ -1,0 +1,17 @@
+summary: Add new root node
+tags:
+  - tree_view_classifier
+consumes:
+  - application/json
+parameters:
+  - in: body
+    name: Node name
+    required: true
+    description: Name of new root node.
+    schema:
+      $ref: "#/definitions/Addroot"
+responses:
+  201:
+    description: Created
+  400:
+    description: Bad Request

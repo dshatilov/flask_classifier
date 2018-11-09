@@ -1,0 +1,45 @@
+
+
+div.header {
+    border: 1px solid #333333;
+    margin: 0px;
+    height: 20px;
+    background-color: darkgray;
+
+    }
+
+div.header p {
+    margin: 0px;
+
+}
+
+div.classifier {
+    float: left;
+    border: 1px solid #333;
+    width: 500px;
+    height: 500px;
+    }
+
+div.content {
+    float: left;
+    width: 200px;
+    height: 500px;
+    border: 1px solid #333;
+    }
+
+.incol {
+    margin: 10px;
+}
+
+.label {
+    font-size: 12px;
+    alignment: center;
+}
+
+.add_btn {
+    float: right;
+}
+
+.jstree_search {
+    margin: 2px;
+}

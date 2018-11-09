@@ -1,0 +1,17 @@
+summary: Rename selected node
+tags:
+  - tree_view_classifier
+consumes:
+  - application/json
+parameters:
+  - in: body
+    name: Request
+    required: true
+    description: Info of renaming node.
+    schema:
+      $ref: "#/definitions/Request"
+responses:
+  204:
+    description: No Content
+  400:
+    description: Bad Request

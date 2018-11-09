@@ -1,0 +1,15 @@
+summary: Delete selected node with all child nodes
+tags:
+  - tree_view_classifier
+parameters:
+  - in: body
+    name: Request
+    required: true
+    description: Id of deleting node.
+    schema:
+      $ref: "#/definitions/Delete"
+responses:
+  204:
+    description: No Content
+  400:
+    description: Bad Request

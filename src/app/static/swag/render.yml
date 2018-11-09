@@ -1,0 +1,49 @@
+summary: Send data to jstree
+tags:
+  - tree_view_classifier
+consumes:
+  - application/json
+responses:
+  200:
+    description: OK
+    schema:
+      $ref: "#/definitions/Node"
+definitions:
+  Node:
+    type: "object"
+    required:
+      - "id"
+      - "parent"
+      - "text"
+    properties:
+      id:
+        type: "integer"
+      parent:
+        type: "string"
+      text:
+        type: "string"
+  Request:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "id of node"
+      text:
+        type: "string"
+        description: "name of node"
+  Addroot:
+    type: "object"
+    required:
+      - "text"
+    properties:
+      text:
+        type: "string"
+        description: "Name od new root node"
+  Delete:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        description: "id of node"

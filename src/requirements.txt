@@ -1,0 +1,7 @@
+flask
+flask_restful
+flask-wtf
+wtforms
+flask-sqlalchemy
+flask-migrate
+flasgger
